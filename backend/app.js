@@ -11,6 +11,9 @@ const errorHandler = require("./middleware/error");
 //import routes
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const jobTypeRoute = require('./routes/jobTypeRoutes');
+const jobRoute = require('./routes/jobsRoutes');
+
 //Database
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -38,6 +41,8 @@ app.get('/', (req, res) =>{
 */
 app.use('/api',authRoutes);
 app.use('/api',userRoutes);
+app.use('/api', jobTypeRoute);
+app.use('/api', jobRoute);
 
 //error Middleware
 app.use(errorHandler)
