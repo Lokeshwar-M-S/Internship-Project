@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { allUsers, singleUser, editUser, deleteUser } = require('../controllers/userController');
+const { allUsers, singleUser, editUser, deleteUser, createUserJobsHistory } = require('../controllers/userController');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
 
@@ -15,7 +15,8 @@ router.get('/user/:id', isAuthenticated, singleUser);
 router.put('/user/edit/:id', isAuthenticated, editUser);
 // /api/admin/user/delete/id
 router.delete('/admin/user/delete/:id', isAuthenticated, isAdmin, deleteUser);
-
+// /api/user/jobshistory
+router.post('/user/jobshistory', isAuthenticated, createUserJobsHistory);
 
 
 module.exports = router;
