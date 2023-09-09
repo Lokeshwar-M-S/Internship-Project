@@ -12,10 +12,20 @@ import UserDashboard from "./pages/user/UserDashboard";
 import UserRoute from "./component/UserRoute";
 import Layout from "./pages/global/Layout";
 import UserJobsHistory from "./pages/user/UserJobsHistory";
+import UserInfoDashboard from "./pages/user/UserInfoDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminRoute from "./component/AdminRoute";
+import SingleJob from "./pages/SingleJob";
+import DashUsers from "./pages/admin/DashUsers";
+import DashJobs from "./pages/admin/DashJobs";
 
 //HOC
 const UserDashboardHOC = Layout(UserDashboard);
 const UserJobsHistoryHOC = Layout(UserJobsHistory);
+const UserInfoDashboardHOC = Layout(UserInfoDashboard);
+const AdminDashboardHOC = Layout(AdminDashboard);
+const DashUsersHOC = Layout(DashUsers);
+const DashJobsHOC = Layout(DashJobs);
 
 const App = () => {
   return (
@@ -30,6 +40,31 @@ const App = () => {
               <Route path="/search/location/:location" element={<Home />} />
               <Route path="/search/:keyword" element={<Home />} />
               <Route path="/login" element={<LogIn />} />
+              <Route path="/job/:id" element={<SingleJob />} />
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminRoute>
+                    <AdminDashboardHOC />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/users"
+                element={
+                  <AdminRoute>
+                    <DashUsersHOC />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/jobs"
+                element={
+                  <AdminRoute>
+                    <DashJobsHOC />
+                  </AdminRoute>
+                }
+              />
               <Route
                 path="/user/dashboard"
                 element={
@@ -43,6 +78,14 @@ const App = () => {
                 element={
                   <UserRoute>
                     <UserJobsHistoryHOC />
+                  </UserRoute>
+                }
+              />
+              <Route
+                path="/user/info"
+                element={
+                  <UserRoute>
+                    <UserInfoDashboardHOC />
                   </UserRoute>
                 }
               />
