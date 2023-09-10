@@ -92,7 +92,10 @@ const Home = () => {
                               }}
                             />
                           </ListItemIcon>
-                          <Link to={`/search/location/${location}`}>
+                          <Link
+                            style={{ color: palette.secondary.main }}
+                            to={`/search/location/${location}`}
+                          >
                             {location}
                           </Link>
                         </MenuItem>
@@ -134,6 +137,8 @@ const Home = () => {
               )}
               <Stack spacing={2}>
                 <Pagination
+                  color="primary"
+                  variant="outlined"
                   page={page}
                   count={pages === 0 ? 1 : pages}
                   onChange={(event, value) => setPage(value)}

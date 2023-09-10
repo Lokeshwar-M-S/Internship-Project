@@ -1,17 +1,23 @@
 import { Avatar, Box } from "@mui/material";
-import React, { useEffect } from "react";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
-import LockClockOutlined from "@mui/icons-material/LockClockOutlined";
+import LockOpenIcon from "@mui/icons-material/LockOpen";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { userSignInAction } from "../redux/actions/userAction";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userSignUpAction } from "../redux/actions/userAction";
 
 const validationSchema = yup.object({
+  firstName: yup
+    .string("Enter your First Name")
+    .min(3, "First Name should be of minimum 3 characters length")
+    .required("First Name is required"),
+  lastName: yup
+    .string("Enter your Last Name")
+    .min(3, "Last Name should be of minimum 3 characters length")
+    .required("Last Name is required"),
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
@@ -22,29 +28,20 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const LogIn = () => {
+const Register = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { isAuthenticated, userInfo } = useSelector((state) => state.signIn);
-  useEffect(() => {
-    if (isAuthenticated) {
-      if (userInfo.role === 1) {
-        navigate("/admin/dashboard");
-      } else {
-        navigate("/user/dashboard");
-      }
-    }
-  }, [isAuthenticated]);
 
   const formik = useFormik({
     initialValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values, actions) => {
-      //  alert(JSON.stringify(values, null, 2));
-      dispatch(userSignInAction(values));
+      //alert(JSON.stringify(values, null, 2));
+      dispatch(userSignUpAction(values));
       actions.resetForm();
     },
   });
@@ -58,6 +55,7 @@ const LogIn = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          bgcolor: "primary.white",
         }}
       >
         <Box
@@ -74,8 +72,54 @@ const LogIn = () => {
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "primary.main", mb: 3 }}>
-              <LockClockOutlined sx={{ color: "white" }} />
+              <LockOpenIcon />
             </Avatar>
+            <TextField
+              sx={{
+                mb: 3,
+                "& .MuiInputBase-root": {
+                  color: "text.secondary",
+                },
+                fieldset: { borderColor: "rgb(231, 235, 240)" },
+              }}
+              fullWidth
+              id="firstName"
+              label="First Name"
+              name="firstName"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="First Name"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.firstName && Boolean(formik.errors.firstName)
+              }
+              helperText={formik.touched.firstName && formik.errors.firstName}
+            />
+            <TextField
+              sx={{
+                mb: 3,
+                "& .MuiInputBase-root": {
+                  color: "text.secondary",
+                },
+                fieldset: { borderColor: "rgb(231, 235, 240)" },
+              }}
+              fullWidth
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              placeholder="Last Name"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
+            />
             <TextField
               sx={{
                 mb: 3,
@@ -123,7 +167,7 @@ const LogIn = () => {
             />
 
             <Button fullWidth variant="contained" type="submit">
-              Log In
+              Register
             </Button>
           </Box>
         </Box>
@@ -133,4 +177,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Register;

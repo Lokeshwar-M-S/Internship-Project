@@ -16,6 +16,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutAction } from "../redux/actions/userAction";
+import { toggleActionTheme } from "../redux/actions/themeAction";
+import { DarkMode, LightMode } from "@mui/icons-material";
 
 const pages = ["Home", "Log In"];
 
@@ -52,7 +54,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ bgcolor: palette.primary.main }}>
       <Container>
         {/* principal Menu */}
         <Toolbar disableGutters>
@@ -141,15 +143,50 @@ const Navbar = () => {
                 Home
               </Link>
             </Button>
+            <Button
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              <Link
+                to="/register"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Register
+              </Link>
+            </Button>
           </Box>
+
+          {/* toggle dark theme*/}
+          <IconButton
+            sx={{ mr: 4 }}
+            onClick={() => dispatch(toggleActionTheme())}
+          >
+            {palette.mode === "dark" ? (
+              <DarkMode sx={{ color: "#ffffff", fontSize: "25px" }} />
+            ) : (
+              <LightMode sx={{ color: "#ffffff", fontSize: "25px" }} />
+            )}
+          </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
+                <Avatar
+                  sx={{ color: palette.primary.white }}
+                  alt="Remy Sharp"
+                  src=""
+                />
               </IconButton>
             </Tooltip>
             <Menu
+              PaperProps={{
+                sx: {
+                  "& 	.MuiMenu-list": {
+                    bgcolor: "primary.white",
+                    color: "white",
+                  },
+                },
+              }}
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}

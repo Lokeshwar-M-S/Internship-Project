@@ -9,8 +9,9 @@ import Navbar from "../component/Navbar";
 import Button from "@mui/material/Button";
 import { userApplyJobAction } from "../redux/actions/userAction";
 import { jobLoadSingleAction } from "../redux/actions/jobAction";
-
+import { useTheme } from "@emotion/react";
 const SingleJob = () => {
+  const { palette } = useTheme();
   const dispatch = useDispatch();
   const { singleJob, loading } = useSelector((state) => state.singleJob);
   const { id } = useParams();
@@ -43,7 +44,7 @@ const SingleJob = () => {
                 {loading ? (
                   <LoadingBox />
                 ) : (
-                  <Card>
+                  <Card sx={{ bgcolor: palette.primary.white }}>
                     <CardContent>
                       <Typography variant="h5" component="h3">
                         {singleJob && singleJob.title}
@@ -58,7 +59,7 @@ const SingleJob = () => {
                         <Box component="span" sx={{ fontWeight: 700 }}>
                           Category
                         </Box>
-                        :{" "}
+                        :
                         {singleJob && singleJob.jobType
                           ? singleJob.jobType.jobTypeName
                           : "No category"}
@@ -78,7 +79,7 @@ const SingleJob = () => {
                 )}
               </Box>
               <Box sx={{ flex: 1, p: 2 }}>
-                <Card sx={{ p: 2 }}>
+                <Card sx={{ p: 2, bgcolor: palette.primary.white }}>
                   <Button
                     onClick={applyForAJob}
                     sx={{ fontSize: "13px" }}

@@ -4,61 +4,44 @@ import { DataGrid, gridClasses } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { jobLoadAction } from "../../redux/actions/jobAction";
+import { jobTypeLoadAction } from "../../redux/actions/jobTypeAction";
 
-const DashJobs = () => {
+import moment from "moment";
+
+const DashCategory = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(jobLoadAction());
+    dispatch(jobTypeLoadAction());
   }, []);
 
-  const { jobs, loading } = useSelector((state) => state.loadJobs);
+  const { jobType, loading } = useSelector((state) => state.jobTypeAll);
   let data = [];
-  data = jobs !== undefined && jobs.length > 0 ? jobs : [];
+  data = jobType !== undefined && jobType.length > 0 ? jobType : [];
 
   //delete job by Id
-  const deleteJobById = (e, id) => {
+  const deleteJobCategoryById = (e, id) => {
     console.log(id);
   };
 
   const columns = [
     {
       field: "_id",
-      headerName: "Job ID",
+      headerName: "Category ID",
       width: 150,
       editable: true,
     },
     {
-      field: "title",
-      headerName: "Job name",
-      width: 150,
-    },
-    {
-      field: "jobType",
+      field: "jobTypeName",
       headerName: "Category",
       width: 150,
-      valueGetter: (data) => data.row.jobType.jobTypeName,
     },
     {
-      field: "user",
-      headerName: "User",
+      field: "createdAt",
+      headerName: "Create At",
       width: 150,
-      valueGetter: (data) => data.row.user.firstName,
-    },
-    {
-      field: "available",
-      headerName: "available",
-      width: 150,
-      renderCell: (values) => (values.row.available ? "Yes" : "No"),
-    },
-
-    {
-      field: "salary",
-      headerName: "Salary",
-      type: Number,
-      width: 150,
-      renderCell: (values) => "$" + values.row.salary,
+      renderCell: (params) =>
+        moment(params.row.createdAt).format("YYYY-MM-DD HH:MM:SS"),
     },
 
     {
@@ -75,13 +58,13 @@ const DashJobs = () => {
           <Button variant="contained">
             <Link
               style={{ color: "white", textDecoration: "none" }}
-              to={`/admin/edit/job/${values.row._id}`}
+              to={`/admin/edit/user/${values.row._id}`}
             >
               Edit
             </Link>
           </Button>
           <Button
-            onClick={(e) => deleteJobById(e, values.row._id)}
+            onClick={(e) => deleteJobCategoryById(e, values.row._id)}
             variant="contained"
             color="error"
           >
@@ -95,15 +78,15 @@ const DashJobs = () => {
   return (
     <Box>
       <Typography variant="h4" sx={{ color: "white", pb: 3 }}>
-        Jobs list
+        Jobs category
       </Typography>
       <Box sx={{ pb: 2, display: "flex", justifyContent: "right" }}>
         <Button variant="contained" color="success" startIcon={<AddIcon />}>
           <Link
             style={{ color: "white", textDecoration: "none" }}
-            to="/admin/job/create"
+            to="/admin/category/create"
           >
-            Create Job
+            Create category
           </Link>
         </Button>
       </Box>
@@ -127,9 +110,10 @@ const DashJobs = () => {
             }}
             rows={data}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={3}
+            rowsPerPageOptions={[3]}
             checkboxSelection
+            // components={{ Toolbar: GridToolbarExport }}
           />
         </Box>
       </Paper>
@@ -137,4 +121,4 @@ const DashJobs = () => {
   );
 };
 
-export default DashJobs;
+export default DashCategory;

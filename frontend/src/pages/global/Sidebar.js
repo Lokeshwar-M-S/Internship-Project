@@ -106,29 +106,25 @@ const SidebarAdm = () => {
                     component={<Link to="/admin/dashboard" />}
                     icon={<DashboardIcon />}
                   >
-                    {" "}
-                    Dashboard{" "}
+                    Dashboard
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/users" />}
                     icon={<GroupAddIcon />}
                   >
-                    {" "}
-                    Users{" "}
+                    Users
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/jobs" />}
                     icon={<WorkIcon />}
                   >
-                    {" "}
-                    Jobs{" "}
+                    Jobs
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/admin/category" />}
                     icon={<CategoryIcon />}
                   >
-                    {" "}
-                    Category{" "}
+                    Category
                   </MenuItem>
                 </>
               ) : (
@@ -137,22 +133,19 @@ const SidebarAdm = () => {
                     component={<Link to="/user/dashboard" />}
                     icon={<DashboardIcon />}
                   >
-                    {" "}
-                    Dashboard{" "}
+                    Dashboard
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/user/jobs" />}
                     icon={<WorkHistoryIcon />}
                   >
-                    {" "}
-                    Applied Jobs{" "}
+                    Applied Jobs
                   </MenuItem>
                   <MenuItem
                     component={<Link to="/user/info" />}
                     icon={<Person3Icon />}
                   >
-                    {" "}
-                    Personal Info{" "}
+                    Personal Info
                   </MenuItem>
                 </>
               )}
@@ -181,8 +174,7 @@ const SidebarAdm = () => {
               }}
             >
               <MenuItem onClick={logOut} icon={<LoginIcon />}>
-                {" "}
-                Log out{" "}
+                Log out
               </MenuItem>
             </Menu>
           </Box>

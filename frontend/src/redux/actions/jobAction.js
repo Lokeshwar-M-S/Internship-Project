@@ -6,7 +6,11 @@ import {
   JOB_LOAD_SINGLE_REQUEST,
   JOB_LOAD_SINGLE_SUCCESS,
   JOB_LOAD_SUCCESS,
+  REGISTER_JOB_FAIL,
+  REGISTER_JOB_REQUEST,
+  REGISTER_JOB_SUCCESS,
 } from "../constants/jobconstant";
+import { toast } from "react-toastify";
 
 export const jobLoadAction =
   (pageNumber, keyword = "", cat = "", location = "") =>
@@ -42,5 +46,25 @@ export const jobLoadSingleAction = (id) => async (dispatch) => {
       type: JOB_LOAD_SINGLE_FAIL,
       payload: error.response.data.error,
     });
+  }
+};
+
+// register job action
+export const registerAjobAction = (job) => async (dispatch) => {
+  dispatch({ type: REGISTER_JOB_REQUEST });
+
+  try {
+    const { data } = await axios.post("/api/job/create", job);
+    dispatch({
+      type: REGISTER_JOB_SUCCESS,
+      payload: data,
+    });
+    toast.success("Job created successfully");
+  } catch (error) {
+    dispatch({
+      type: REGISTER_JOB_FAIL,
+      payload: error.response.data.error,
+    });
+    toast.error(error.response.data.error);
   }
 };
