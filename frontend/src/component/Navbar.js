@@ -207,7 +207,7 @@ const Navbar = () => {
                   <Link
                     style={{
                       textDecoration: "none",
-                      color: palette.primary.main,
+                      color: palette.secondary.main,
                     }}
                     to="/admin/dashboard"
                   >
@@ -220,7 +220,7 @@ const Navbar = () => {
                   <Link
                     style={{
                       textDecoration: "none",
-                      color: palette.primary.main,
+                      color: palette.secondary.main,
                     }}
                     to="/user/dashboard"
                   >
@@ -235,7 +235,7 @@ const Navbar = () => {
                     <Link
                       style={{
                         textDecoration: "none",
-                        color: palette.primary.main,
+                        color: palette.secondary.main,
                       }}
                       to="/login"
                     >
@@ -248,7 +248,7 @@ const Navbar = () => {
                   <Typography
                     style={{
                       textDecoration: "none",
-                      color: palette.primary.main,
+                      color: palette.secondary.main,
                     }}
                     textAlign="center"
                   >

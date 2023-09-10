@@ -86,7 +86,7 @@ exports.showJobs = async (req, res, next) => {
   let locationFilter = location !== "" ? location : setUniqueLocation;
 
   //enable pagination
-  const pagesize = 7;
+  const pagesize = 5;
   const page = Number(req.query.pageNumber) || 1;
   //const count = await Job.find({}).estimatedDocumentCount();
   const count = await Job.find({
